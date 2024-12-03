@@ -1,11 +1,9 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 class Student {
     private String name;
-    private String studentId;  // Updated to String to allow alphanumeric input
+    private String studentId;
     private double marks;
     private String rank;
 
@@ -52,7 +50,7 @@ class Student {
 
     public void setMarks(double marks) {
         this.marks = marks;
-        this.rank = assignRank();  // Recalculate rank
+        this.rank = assignRank();
     }
 
     @Override
@@ -69,7 +67,6 @@ class StudentManagement {
     }
 
     public boolean isNameValid(String name) {
-        // Regular expression to allow only letters and spaces in the name
         return name.matches("[a-zA-Z ]+");
     }
 
@@ -110,8 +107,18 @@ class StudentManagement {
         System.out.println("Student removed if found.");
     }
 
+    // bubble sort
     public void sortStudentsByMarks() {
-        Collections.sort(students, Comparator.comparingDouble(Student::getMarks).reversed());
+        int n = students.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (students.get(j).getMarks() < students.get(j + 1).getMarks()) {
+                    Student temp = students.get(j);
+                    students.set(j, students.get(j + 1));
+                    students.set(j + 1, temp);
+                }
+            }
+        }
     }
 
     public Student searchStudent(String studentId) {
